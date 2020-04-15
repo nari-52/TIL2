@@ -99,5 +99,3 @@ public class JdbcTest01_DDL {
 
 }
 
-
-
