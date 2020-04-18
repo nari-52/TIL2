@@ -1,9 +1,9 @@
-package jdbc.day01.statement;
+package prac.jdbc.day01.statement;
 
 import java.sql.*;
 import java.util.*;
 
-public class JdbcTest05_Update {
+public class JdbcTest06_Delete {
 
 	public static void main(String[] args) {
 		
@@ -75,7 +75,7 @@ public class JdbcTest05_Update {
 					  "from jdbc_tbl_memo\n";
 															
 				System.out.println("\n -->>> 데이터 수정하기 <<<-- \n"
-								 + " 1. 변경대상 글번호   2. 종료\n"
+								 + " 1. 데이터 삭제하기   2. 종료\n"
 								 + " -----------------------");
 				
 				System.out.print("▶ 메뉴번호를 선택하세요 : ");
@@ -83,10 +83,10 @@ public class JdbcTest05_Update {
 				
 				switch (menuNo) {
 					case "1" : // 변경대상 글번호
-						System.out.print("▶  변경대상 글번호 : ");
-						String updateNo = sc.nextLine();	// 변경 글번호
+						System.out.print("▶  삭제대상 글번호 : ");
+						String deleteNo = sc.nextLine();	// 변경 글번호
 
-						sql += " where no = " + updateNo;
+						sql += " where no = " + deleteNo;
 						
 						rs = stmt.executeQuery(sql);		
 						
@@ -102,12 +102,9 @@ public class JdbcTest05_Update {
 						    System.out.println("-----------------------------------------------------------");
 						    							
 							System.out.println(no +"\t"+name+"\t"+msg+"\t"+writeday );
-							
-							System.out.print("\n▶  변경할 글내용 입력 : ");
-							String changMsg = sc.nextLine();	// 변경할 글내용
-													
-							sql = " update jdbc_tbl_memo set msg = '"+changMsg+"'\n"+
-								  " where no = " + updateNo ;
+										
+							sql = "delete jdbc_tbl_memo\n"+
+								  "where no = " + deleteNo;
 							
 							int n = stmt.executeUpdate(sql);
 							
@@ -116,17 +113,17 @@ public class JdbcTest05_Update {
 								String yn = "";
 								
 								do {
-									System.out.print(">> 정말로 수정하시겠습니까? [Y/N] : ");
+									System.out.print(">> 정말로 삭제하시겠습니까? [Y/N] : ");
 									yn = sc.nextLine();
 									
 									if ( "Y".equalsIgnoreCase(yn) ) {
 										conn.commit();
-										System.out.println(">>> 데이터 수정 성공! <<<");									
+										System.out.println(">>> 데이터 삭제 성공! <<<");									
 										break;
 									}
 									else if ( "N".equalsIgnoreCase(yn) ) {
 										conn.rollback();
-										System.out.println(">>> 데이터 수정 실패! <<<");									
+										System.out.println(">>> 데이터 삭제 실패! <<<");									
 										break;
 									}
 									else {
@@ -134,8 +131,12 @@ public class JdbcTest05_Update {
 									}	
 									
 								} while (true);							
-							} // end of if (n == 1)--------------------					
+							} // end of if (n == 1)--------------------	
+							
 
+						}
+						else {
+							System.out.println(">> 입력하신 " +deleteNo+ " 은 없는 글 번호 입니다. \n");
 						}
 					case "2" : // 종료
 						
@@ -147,6 +148,29 @@ public class JdbcTest05_Update {
 				} // end of switch (menuNo)-----------------
 
 			} while (!"2".equals(menuNo));
+			
+			sql = "select no, name, msg\n"+
+					  ",to_char(writeday, 'yyyy-mm-dd hh24:mi:ss') AS writeday   \n"+
+					  "from jdbc_tbl_memo\n";
+			
+			rs = stmt.executeQuery(sql);
+			
+			System.out.println("-----------------------------------------------------------");
+		    System.out.println("글번호\t글쓴이\t글내용\t\t\t작성일자");
+		    System.out.println("-----------------------------------------------------------");
+		    	
+		    while (rs.next()) {
+		    	int no = rs.getInt(1);
+				String name = rs.getString(2);
+				String msg = rs.getString(3);
+				String writeday = rs.getString(4);
+				
+				System.out.println(no +"\t"+name+"\t"+msg+"\t"+writeday );
+		    }
+			
+			// >>> 오토커밋으로 전환하기 <<<
+		    conn.setAutoCommit(true);
+			
 			
 		} catch (ClassNotFoundException e) {
 			System.out.println(">> ojdbc6.jar 파일이 없거나 라이브러리에 등록되지 않았습니다.");

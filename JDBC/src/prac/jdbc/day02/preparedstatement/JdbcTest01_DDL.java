@@ -1,4 +1,4 @@
-package jdbc.day01.statement;
+package prac.jdbc.day02.preparedstatement;
 
 import java.sql.*;
 import java.util.*;
