@@ -1,0 +1,73 @@
+
+	● JDBC란 무엇인가?
+	JAVA가 데이터베이스를 사용할 수 있도록 연결해주는 응용프로그램 인터페이스
+	
+	● OJDBC가 무엇인가?
+	java에서 jdbc를 사용하기 위애 라이브러리에 oracle에서 제공하는 ojdbc 라이브러리를 추가해야한다.
+	
+	
+	Oracle / ojdbc6.jar 파일
+	
+	
+	●SQL+ / SQLdeveloper
+	
+	SQL+ : 명령줄 인터페이스를 갖춘 가장 기본적인 oracle DB 유틸리티로
+	cmd에서 사용되고 커멘드 기반으로 오로지 키보드로만 입력 가능하다. 
+	
+	sqldeveloper : oracle DB에 SQL로 작업하기 위한 GUI기반의 개발환경이다.
+	마우스와 키보드가 같이 사용 되고 응용프로그램으로 되어있다.
+	
+	
+	● 오라클 에디션
+	oracle enterprise edition :
+	확장성과 안정성을 제공, 기업용, 가장 고성능, SQL Java XML, 웹 인터페이스를 통한 웹 서비스로의 개방적인 엑세스 가능
+	오류에 대해 계획된 유지보수 등을 극복할 수 있는 지속적인 가용성을 갖는다.
+	oracle standard edition :
+	부서용으로서 부서용
+	인터넷 애플리케이션을 개발, 관리하기 위한 데이터베이스 관리 시스템.
+	빠른 설치와 간편한 구성 및 자동화 관리 기능
+	oracle personal edition : 
+	교육이나 클라이언트 작업용
+	개인 사용자를 위한, 모든 기능이 갖춰진 버전.
+	oracle lite edition :
+	모바일용 데이터 베이스
+	소형 고성능 모듈 방식의 java 사용 DB
+	메모리 제약형 개인용 휴대장비를 비롯한 최신의 이동식 컴퓨팅 장치에 기업용 어플 배치 가능
+	oracle express edition : 
+	무료 배포용 
+	무료 버전이기 때문에 다른 것들에 비해 제약이 많이 걸려있다.
+	현재 우리가 사용중이다.
+	
+	
+	● 데이터베이스 모델링?
+	
+	- 모델링이란 현실세계의 다양한 현상을 모형화 시키는 작업
+	- 어떤 업무 프로세스를 단순화, 명확화 시키는 작업
+	
+	개념적설계, 논리적설계, 물리적설계가 있다.
+	- 시스템을 원하는 모습으로 가시화 하도록 도와준다.
+	- 시스템의 구조와 행동을 명세화 할 수 있게 한다.
+	- 시스템을 구축하는 구조화된 틀을 제공한다.
+	
+	
+	● 오라클 view?
+	create or replace, force, with read only, reac check option 등
+	
+	VIEW를 통해서 DML(insert, update, delete),이 가능하다.
+	
+	create or replace : 뷰 생성 혹은 이미 존재하는 경우에는 재 생성
+	force : 기본 테이블 존재 여부와 관계없이 뷰 생성
+	noforce : 기본 테이블이 존재할 때만 뷰 생성 (기본값)
+	with check option : 뷰의 where절이 마치 check 제약처럼 사용되어 
+	where절에 위배되어지는 DML은 사용불가하다.
+	with read only : DML 작업이 불가하다
+	
+	
+	● JDBC 데이터베이스 연결부터 결과물을 받을 때 까지 단계
+	
+	
+	1단계 - 오라클 드라이버 로딩
+	2단계 - 커넥션 맺는다
+	3단계 - sql문을 작성한다 
+	4단계 - PreparedStatement (SQL 전달자) 객체 생성한다.
+	5단계 - ResultSet rs 결과물을 받는다.
