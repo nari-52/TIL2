@@ -93,7 +93,6 @@ public class JdbcTest01_DDL {
 				e.printStackTrace();
 			}
 		}
-
 		
 	} // end of main()-----------------------------------------
 
